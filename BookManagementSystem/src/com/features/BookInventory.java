@@ -27,6 +27,14 @@ public class BookInventory {
 			}
 		}
 		
+		public void setPrice(int isbn, double price) {
+            this.Prices.put(isbn, price);
+        }
+		
+		public void setGenre(String genre) {
+			this.Genres.add(genre);
+		}
+		
 		public void removeBook(Book book) {
 			if (this.books.contains(book)) {
 				this.books.remove(book);
@@ -57,6 +65,37 @@ public class BookInventory {
 					}
 					);
 		}
+		
+		public void ShowBooksByGenre(String genre) {
+			this.books.forEach(book -> {
+				if (book.getGenre().equals(genre)) {
+					System.out.println(book.toString());
+					System.out.println(
+							"---------------------------------------------------------------------------------------------------------");
+				}
+			});
+		}
+		
+		public void showBooksbyAuthor(String author) {
+            this.books.forEach(book -> {
+                if (book.getAuthor().equals(author)) {
+                    System.out.println(book.toString());
+                    System.out.println(
+                            "---------------------------------------------------------------------------------------------------------");
+                }
+            });
+        }
+		
+		public void showBooksByTitle(String Title) {
+			this.books.forEach(book -> {
+				if (book.getTitle().equals(Title)) {
+					System.out.println(book.toString());
+					System.out.println(
+							"---------------------------------------------------------------------------------------------------------");
+				}
+			});
+		}
+		
 		
 		public void showGenres() {
 			this.Genres.forEach(genre -> {

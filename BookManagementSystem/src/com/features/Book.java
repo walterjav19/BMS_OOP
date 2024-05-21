@@ -68,6 +68,15 @@ public class Book {
 			this.quantity = quantity;
 	}
 
+	public void addQuantity(int quantity) {
+		this.quantity += quantity;
+	}
+	
+	public void removeQuantity(int quantity) {
+		this.quantity -= quantity;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return String.format("| %-15s | %-20s | %-20s | %-15s | %-10.2f | %-8d |", 
