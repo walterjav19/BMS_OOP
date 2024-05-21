@@ -17,6 +17,19 @@ public class Menu {
 		
 	}
 	
+	private void WaitEnter() {
+		Scanner n = new Scanner(System.in);
+		n.nextLine();
+	}
+	
+	private void showAllBooks() {
+	   System.out.println("---------------------------------------------------------------------------------------------------------");
+	    System.out.println("| ISBN            | TITLE               | AUTHOR              | GENRE          | PRICE      | QUANTITY  |");
+	    System.out.println("---------------------------------------------------------------------------------------------------------");
+		Inventory.showBooks();
+		WaitEnter();
+	}
+	
 	private void displayMenu() {
 		System.out.println("------------------------");
 		System.out.println("|BOOK MANAGEMENT SYSTEM|");
@@ -29,6 +42,53 @@ public class Menu {
 		System.out.println("------------------------");
 	}
 	
+	private void displayRemoveBook() {
+		System.out.println("Enter ISBN: ");
+		String isbn = scanner.next();
+		
+		if (!isbn.matches("[0-9]+")) {
+			System.out.println("\nInvalid ISBN, must be numbers\n");
+			WaitEnter();
+			return;
+		}
+		
+		Book book = Inventory.SearchByIsbn(Integer.parseInt(isbn));
+		if (book != null) {
+			Inventory.removeBook(book);
+			System.out.println("Book removed successfully");
+		} else {
+			System.out.println("Book does not exist");
+		}
+		WaitEnter();
+		
+	}
+	
+	private void displaySearchMenu() {
+		System.out.println("------------------------");
+		System.out.println("|      SEARCH MENU     |");
+		System.out.println("------------------------");
+		System.out.println("|      1. BY ISBN      |");
+		System.out.println("|      2. BY TITLE     |");
+		System.out.println("|      3. BY AUTHOR    |");
+		System.out.println("|      4. BY GENRE     |");
+		System.out.println("|      5. BY PRICE     |");
+		System.out.println("|      6. BY QUANTITY  |");
+		System.out.println("|      7.SHOW ALL BOOKS|");
+		System.out.println("------------------------");
+		System.out.print("Select an option:  ");
+		int searchOption = scanner.nextInt();
+		
+		switch(searchOption) {
+		case 7:
+			showAllBooks();
+			break;
+		}
+		
+		
+	}
+	
+	
+	
 	private void MenuAdd() {
         System.out.println("============ADD=============");
        
@@ -38,7 +98,7 @@ public class Menu {
         
        if(!isbn.matches("[0-9]+")) {
 			System.out.println("\nInvalid ISBN, must be numbers\n");
-			scanner.nextLine();// to wait until enter
+			WaitEnter();
 			return;
        }
 
@@ -47,7 +107,7 @@ public class Menu {
         
         if(title.isEmpty()) {
         	    System.out.println("\nInvalid Title, must not be empty\n");
-        	    scanner.nextLine();// to wait until enter
+        	    WaitEnter();
         	    return;
         }
 
@@ -56,11 +116,11 @@ public class Menu {
         
 		if (author.isEmpty()) {
 			System.out.println("\nInvalid Author, must not be empty\n");
-			scanner.nextLine();// to wait until enter
+			WaitEnter();
 			return;
 		}else if(!author.matches("[a-zA-ZÑñ ]+")) {
 			System.out.println("\nInvalid Author, must not contain only letters\n");
-			scanner.nextLine();// to wait until enter
+			WaitEnter();
 			return;
 		}
 
@@ -69,11 +129,11 @@ public class Menu {
         
         if(genre.isEmpty()) {
         	    System.out.println("\nInvalid Genre, must not be empty\n");
-        	    scanner.nextLine();// to wait until enter
+        	    WaitEnter();
         	    return;
         }else if(!genre.matches("[a-zA-ZÑñ ]+")) {
 	            System.out.println("\nInvalid Genre, must not contain only letters\n");
-	            scanner.nextLine();// to wait until enter
+	            WaitEnter();
         }
 
         System.out.println("Enter Price: ");
@@ -82,7 +142,7 @@ public class Menu {
 		if (price <= 0) {
 			System.out.println("\nInvalid Price, must be greater than 0\n");
 			Scanner n=new Scanner(System.in);
-			n.nextLine();// to wait until enter
+			WaitEnter();
 			return;
 		}
         
@@ -93,7 +153,7 @@ public class Menu {
 		if (quantity <= 0) {
 			System.out.println("\nInvalid Quantity, must be greater than 0\n");
 			Scanner n=new Scanner(System.in);
-			n.nextLine();// to wait until enter
+			WaitEnter();
 			return;
 		}
         
@@ -102,10 +162,21 @@ public class Menu {
        
         
         
-		Book book = new Book(Integer.parseInt(isbn),title,author,genre,price,quantity);
-		Inventory.addBook(book);
+		Book book = new Book(Integer.parseInt(isbn),title,author,genre,price,quantity);// object that will be insert
 		
-		Inventory.showBooks();
+		boolean add=Inventory.addBook(book); // this flag help me to verify if the book was added
+		
+		if(add) {
+			System.out.println("Book added successfully");
+		}else {
+            System.out.println("Book already exists");
+        }
+		
+		WaitEnter();
+		
+		
+		
+		
 		
 	}
 	
@@ -126,10 +197,10 @@ public class Menu {
                     
                     break;
                 case 3:
-                  
+                	displayRemoveBook(); 
                     break;
                 case 4:
-                    
+                    displaySearchMenu();
                     break;
                 case 5:
                     Exit();

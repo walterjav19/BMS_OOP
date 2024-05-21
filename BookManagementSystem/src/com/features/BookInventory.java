@@ -16,13 +16,14 @@ public class BookInventory {
 			this.Genres = new HashSet<String>();
 		}
 		
-		public void addBook(Book book) {
+		public boolean addBook(Book book) {
 			if (!this.books.contains(book)) {
 				this.books.add(book);
 				this.Prices.put(book.getIsbn(), book.getPrice());
 				this.Genres.add(book.getGenre());
+				return true;
 			}else{
-				System.out.println("Book already exists");
+				return false;
 			}
 		}
 		
@@ -46,10 +47,13 @@ public class BookInventory {
 			return null;
 		}
 		
+		
+		
 		public void showBooks() {
 			this.books.forEach(
 					book ->{
 						System.out.println(book.toString());
+					    System.out.println("---------------------------------------------------------------------------------------------------------");
 					}
 					);
 		}

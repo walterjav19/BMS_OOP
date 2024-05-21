@@ -70,8 +70,8 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [isbn=" + isbn + ", title=" + title + ", author=" + author + ", genre=" + genre + ", price="
-				+ price + ", quantity=" + quantity + "]";
+		return String.format("| %-15s | %-20s | %-20s | %-15s | %-10.2f | %-8d |", 
+                isbn, title, author, genre, price, quantity);
 	}
 
 	@Override
