@@ -72,8 +72,14 @@ public class Book {
 		this.quantity += quantity;
 	}
 	
-	public void removeQuantity(int quantity) {
-		this.quantity -= quantity;
+	public boolean removeQuantity(int quantity) {
+		if (this.quantity ==0) {
+			return false;
+		}else {
+			this.quantity -= quantity;
+			return true;
+		}
+		
 	}
 	
 	

@@ -15,7 +15,7 @@ public class Menu {
 		this.option=0;
 		this.Inventory=new BookInventory();
 		
-		Book book = new Book(123456,"Java", "Deitel",  "Programming", 100.0, 10);
+		Book book = new Book(123456,"Java", "Deitel",  "Programming", 100.0, 1);
 		Book book2 = new Book(1234567,"Python", "Deitel",  "Programming", 100.0, 10);
 		Book book3 = new Book(1234568,"C#", "Deitel",  "Programming", 100.0, 10);
 		Book book4 = new Book(12345689,"C#", "Deitel",  "Programming", 100.0, 10);
@@ -50,7 +50,8 @@ public class Menu {
 		System.out.println("|      2. UPDATE BOOK  |");
 		System.out.println("|      3. REMOVE BOOK  |");
 		System.out.println("|      4. SEARCH       |");
-		System.out.println("|      5. EXIT         |");
+		System.out.println("|      5. PURCHASE     | ");
+		System.out.println("|      6. EXIT         |");
 		System.out.println("------------------------");
 	}
 	
@@ -406,6 +407,31 @@ public class Menu {
 	}
 	
 	
+	private void Purchase() {
+		   	System.out.println("---------------------------------------------------------------------------------------------------------");
+		    System.out.println("| ISBN            | TITLE               | AUTHOR              | GENRE          | PRICE      | QUANTITY  |");
+		    System.out.println("---------------------------------------------------------------------------------------------------------");
+			Inventory.showBooks();
+			System.out.println("Enter ISBN: ");
+			
+			String isbn = scanner.next();
+			
+			if (!isbn.matches("[0-9]+")) {
+				System.out.println("\nInvalid ISBN, must be numbers\n");
+				WaitEnter();
+				return;
+			}
+			
+			Book book = Inventory.SearchByIsbn(Integer.parseInt(isbn));
+			if(book.removeQuantity(1)) {
+				System.out.println("\nBook purchased successfully!!!");
+			}else {
+				System.out.println("\nBook not in Stock");
+			}
+			
+			WaitEnter();
+
+	}
 	
 	private void Exit() {
 		System.out.println("\nGoodbye!");
@@ -430,12 +456,15 @@ public class Menu {
                     displaySearchMenu();
                     break;
                 case 5:
+                	Purchase();
+                	break;
+                case 6:
                     Exit();
                     break;
                 default:
                     System.out.println("No valid option");
                     break;
             }
-        } while (option != 5);
+        } while (option != 6);
 		}
 }
